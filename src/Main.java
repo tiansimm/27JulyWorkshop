@@ -3,10 +3,10 @@ import java.util.Scanner;
 
 public class Main {
     // Static list of users, acting as a database
-    private static ArrayList<User> users = new ArrayList<>();
+    private final static ArrayList<User> users = new ArrayList<>();
 
     // Mock authentication service that always returns the first user when log in, and does nothing when sign up
-    private static IAuthenticationService authService = new IAuthenticationService() {
+    private final static IAuthenticationService authService = new IAuthenticationService() {
         @Override
         public User signUp(String username, String password) {
             return null;
@@ -90,7 +90,18 @@ public class Main {
         System.out.print("Enter your password: ");
         String password = scanner.nextLine();
         User user = authService.signUp(username, password);
-        // TODO Later: Shows a message based on the result
+
+        if (user != null){
+            System.out.println("User " + user.getUsername() + " has been created successfully");
+        }
+        else
+        {
+            System.out.println("The username is already taken!");
+        }
+
+        // TODO Now: Show a message based on the result of the signUp method:
+        // - If the user is not null, show "User <username> has been created successfully!"
+        // - If the user is null, show "The username is already taken!"
     }
 
     /**
